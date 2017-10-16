@@ -15,12 +15,12 @@
  * 8 = Byte Array (max. 8191 Bytes, constant record length!)
  * --------------------------------------------------------------------
  * 9 = unsigned integer                                 | Big Endian
- * 10 = signed integer (twoÅfs complement)              | (Motorola)
+ * 10 = signed integer (two¬Åfs complement)              | (Motorola)
  * 11 = IEEE 754 floating-point format FLOAT (4 bytes)  | Byte order
  * 12 = IEEE 754 floating-point format DOUBLE (8 bytes) |
  * --------------------------------------------------------------------
  * 13 = unsigned integer                                | Little Endian
- * 14 = signed integer (twoÅfs complement)              | (Intel)
+ * 14 = signed integer (two¬Åfs complement)              | (Intel)
  * 15 = IEEE 754 floating-point format FLOAT (4 bytes)  | Byte order
  * 16 = IEEE 754 floating-point format DOUBLE (8 bytes) |
  * --------------------------------------------------------------------
@@ -232,10 +232,10 @@ CNBlock.prototype.initiallize = function(arrayBuffer, blockOffset, littleEndian)
           var ans = 0;
           var i;
           for(i = 0; i < uint8Array.length - 1; i++){
-            ans += uint8Array[i] * Math.pow(2, 8 * i - thisBitOffset);
+            ans += Math.floor(uint8Array[i] * Math.pow(2, 8 * i - thisBitOffset));
           }
           var maskedVal = uint8Array[i] & bitmask;  // uint8Array[index] == MSB byte.
-          ans += maskedVal * Math.pow(2, 8 * i - thisBitOffset);
+          ans += Math.floor(maskedVal * Math.pow(2, 8 * i - thisBitOffset));
 
           return ans;
         };
